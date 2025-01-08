@@ -1,54 +1,43 @@
-/*
-Raylib example file.
-This is an example main file for a simple raylib project.
-Use this as a starting point or replace it with your code.
-
-by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit https://creativecommons.org/publicdomain/zero/1.0/
-
-*/
-
 #include "raylib.h"
 
-#include "resource_dir.h"	// utility header for SearchAndSetResourceDir
+int main() {
+    SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
 
-int main ()
-{
-	// Tell the window to use vsync and work on high DPI displays
-	SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
+    InitWindow(1280, 800, "Hello Raylib");
 
-	// Create the window and OpenGL context
-	InitWindow(1280, 800, "Hello Raylib");
+    while (!WindowShouldClose()) {
+        BeginDrawing();
 
-	// Utility function from resource_dir.h to find the resources folder and set it as the current working directory so we can load from it
-	SearchAndSetResourceDir("resources");
+        ClearBackground(DARKGRAY);
 
-	// Load a texture from the resources directory
-	Texture wabbit = LoadTexture("wabbit_alpha.png");
-	
-	// game loop
-	while (!WindowShouldClose())		// run the loop untill the user presses ESCAPE or presses the Close button on the window
-	{
-		// drawing
-		BeginDrawing();
+        float gameAreaSize = 500.0f;
+        float gameAreaOffsetX = (float)GetRenderWidth() / 2.0f - gameAreaSize / 2.0f;
+        float gameAreaOffsetY = (float)GetRenderHeight() / 2.0f - gameAreaSize / 2.0f;
 
-		// Setup the back buffer for drawing (clear color and depth buffers)
-		ClearBackground(BLACK);
+        float cellSize = gameAreaSize / 20;
 
-		// draw some text using the default font
-		DrawText("Hello Raylib", 200,200,20,WHITE);
+        Rectangle outlineRect{
+            .x =  gameAreaOffsetX,
+            .y =  gameAreaOffsetY,
+            .width =  gameAreaSize,
+            .height =  gameAreaSize};
+        DrawRectangleRoundedLinesEx(outlineRect, 0.025, 3, 4, LIGHTGRAY);
 
-		// draw our texture to the screen
-		DrawTexture(wabbit, 400, 200, WHITE);
-		
-		// end the frame and get ready for the next one  (display frame, poll input, etc...)
-		EndDrawing();
-	}
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                Rectangle cellRect{
+                        .x = (float)i * cellSize + gameAreaOffsetX,
+                        .y = (float)j * cellSize + gameAreaOffsetY,
+                        .width = cellSize,
+                        .height = cellSize
+                };
+                DrawRectangleRounded(cellRect, 0.2, 3, LIGHTGRAY);
+            }
+        }
 
-	// cleanup
-	// unload our texture so it can be cleaned up
-	UnloadTexture(wabbit);
+        EndDrawing();
+    }
 
-	// destroy the window and cleanup the OpenGL context
-	CloseWindow();
-	return 0;
+    CloseWindow();
+    return 0;
 }
