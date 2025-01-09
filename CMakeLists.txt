@@ -24,9 +24,24 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
   endif()
 endif()
 
+find_package(googletest)
+if (NOT googletest_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/4bbf80823cbf667488b41ab45bf6d1b15580e977.zip
+    )
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+endif()
+
 # Our Project
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp
+        src/Player.cpp
+        src/Player.h
+        src/PlayerCell.h
+        )
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 
@@ -42,3 +57,19 @@ if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 endif()
+
+# TESTS
+add_executable(${PROJECT_NAME}_tests
+    src/Player.cpp
+    src/Player.h
+    src/PlayerCell.h
+    tests/hello_test.cpp
+    tests/PlayerTests.cpp)
+target_link_libraries(
+    ${PROJECT_NAME}_tests
+    raylib
+    GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}_tests)
