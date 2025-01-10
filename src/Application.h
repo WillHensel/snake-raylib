@@ -16,7 +16,7 @@ public:
     Vector2 getWindowSize();
     void startGame();
 private:
-    Game game_;
+    Game* game_;
     Vector2 windowSize_ = Vector2{1280, 800}; 
 };
 

@@ -5,6 +5,7 @@
 #include "Player.h"
 
 #include <utility>
+#include <iostream>
 #include "PlayerRenderComponent.h"
 
 Player::Player(PlayerRenderComponent* renderComponent)
@@ -12,18 +13,35 @@ Player::Player(PlayerRenderComponent* renderComponent)
     
     lookingAt = {-1, 0};
     head = new PlayerCell{
+        .pos = {-2, 0},
+        .isNew = false
+    };
+    head->next = new PlayerCell{
+        .pos = {-1, 0},
+        .isNew = false
+    };
+    head->next->next = new PlayerCell{
         .pos = {0, 0},
+        .isNew = false,
     };
 }
 
-//Player::~Player() {
-//    delete(head);
-//}
+Player::~Player() {
+    std::cout << "Player destroyed" << std::endl;
+    
+    delete renderComponent_;
+
+    PlayerCell* next = head;
+    while (next != nullptr) {
+        PlayerCell* temp = next;
+        next = next->next;
+        temp->next = nullptr;
+        delete temp;
+    }
+}
 
 
 void Player::update() {
-    addTail();
-    moveForward();
     renderComponent_->draw(*this);
 }
 

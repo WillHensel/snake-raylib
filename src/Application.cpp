@@ -9,10 +9,11 @@ Application::Application() {
     InitWindow(windowSize_.x, windowSize_.y, "Snake");
     SetTargetFPS(2);
     
-    game_ = Game{};
+    game_ = new Game{};
 }
 
 Application::~Application() {
+    delete game_;
     CloseWindow();
 }
 
@@ -21,5 +22,5 @@ Vector2 Application::getWindowSize() {
 }
 
 void Application::startGame() {
-    game_.gameLoop();
+    game_->gameLoop();
 }

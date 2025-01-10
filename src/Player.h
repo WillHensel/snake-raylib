@@ -14,6 +14,7 @@ class PlayerRenderComponent;
 class Player {
 public:
     explicit Player(PlayerRenderComponent*);
+    ~Player();
     void update();
     void moveForward();
     void addTail();

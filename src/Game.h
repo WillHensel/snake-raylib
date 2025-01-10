@@ -6,12 +6,14 @@
 #define SNAKE_RAYLIB_GAME_H
 
 #include <array>
+#include <iostream>
 #include "Player.h"
 #include "GameAreaRenderComponent.h"
 #include "PlayerRenderComponent.h"
 
 class Game {
 public:
+    Game() : player_(Player{new PlayerRenderComponent(gameAreaSize_, gameAreaScreenCoordinates_)}) {};
     void gameLoop();
 
 private:
@@ -22,7 +24,7 @@ private:
             (float) GetRenderHeight() / 2.0f - gameAreaSize_ / 2.0f
     };
 
-    Player player_ = Player{new PlayerRenderComponent(gameAreaSize_, gameAreaScreenCoordinates_)};
+    Player player_;
 
     GameAreaRenderComponent renderComponent{gameAreaSize_, gameAreaScreenCoordinates_};
 };
