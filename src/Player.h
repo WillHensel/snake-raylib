@@ -5,22 +5,28 @@
 #ifndef SNAKE_RAYLIB_PLAYER_H
 #define SNAKE_RAYLIB_PLAYER_H
 
-#include "PlayerCell.h";
-#include "raylib.h";
+#include <vector>
+#include "PlayerCell.h"
+#include "raylib.h"
 
+class PlayerRenderComponent;
 
 class Player {
 public:
-    Player();
+    explicit Player(PlayerRenderComponent*);
+    void update();
     void moveForward();
     void addTail();
     Vector2 getHeadPos();
     Vector2 getTailPos();
+    std::vector<Vector2> getCellPositions();
     int getCellCount();
     
 private:
     Vector2 lookingAt{};
     PlayerCell* head;
+    
+    PlayerRenderComponent* renderComponent_;
 };
 
 

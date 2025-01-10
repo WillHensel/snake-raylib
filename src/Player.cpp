@@ -4,15 +4,34 @@
 
 #include "Player.h"
 
-Player::Player() {
+#include <utility>
+#include "PlayerRenderComponent.h"
+
+Player::Player(PlayerRenderComponent* renderComponent)
+        : renderComponent_(renderComponent) {
+    
     lookingAt = {-1, 0};
     head = new PlayerCell{
         .pos = {0, 0},
     };
 }
 
+//Player::~Player() {
+//    delete(head);
+//}
+
+
+void Player::update() {
+    addTail();
+    moveForward();
+    renderComponent_->draw(*this);
+}
+
 void Player::moveForward() {
+    // Save the current head position
     Vector2 prevPos = head->pos;
+    
+    // Advance the head forward
     head->pos.x += lookingAt.x;
     head->pos.y += lookingAt.y;
     
@@ -20,6 +39,7 @@ void Player::moveForward() {
     Vector2 nextPos;
     
     while (next != nullptr) {
+        // If the next cell is a new tail, it stays where it is for its first move
         if (next->isNew) {
             next->isNew = false;
             break;
@@ -29,7 +49,7 @@ void Player::moveForward() {
         
         next->pos.x = prevPos.x;
         next->pos.y = prevPos.y;
-        prevPos = next->pos;
+        prevPos = nextPos;
         
         next = next->next;
     }
@@ -41,8 +61,7 @@ void Player::addTail() {
         next = next->next;
     }
     
-    next->next = new PlayerCell{Vector2{next->pos.x, next->pos.y}};
-    next->next->isNew = true;
+    next->next = new PlayerCell{.pos = Vector2{next->pos.x, next->pos.y}, .isNew = true};
 }
 
 Vector2 Player::getTailPos() {
@@ -53,10 +72,21 @@ Vector2 Player::getTailPos() {
     return next->pos;
 }
 
-int Player::getCellCount() {
-    int count = 1;
+std::vector<Vector2> Player::getCellPositions() {
+    std::vector<Vector2> result{};
     PlayerCell* next = head;
-    while (next->next != nullptr) {
+    while (next != nullptr) {
+        result.push_back(next->pos);
+        next = next->next;
+    }
+    
+    return result;
+};
+
+int Player::getCellCount() {
+    int count = 0;
+    PlayerCell* next = head;
+    while (next != nullptr) {
         count++;
         next = next->next;
     }

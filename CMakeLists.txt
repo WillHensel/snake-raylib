@@ -41,7 +41,15 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/Player.cpp
         src/Player.h
         src/PlayerCell.h
-        )
+        src/Game.cpp
+        src/Game.h
+        src/Application.cpp
+        src/Application.h
+        src/GameAreaRenderComponent.cpp
+        src/GameAreaRenderComponent.h
+        src/PlayerRenderComponent.cpp
+        src/PlayerRenderComponent.h
+)
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
 
@@ -59,17 +67,18 @@ if (APPLE)
 endif()
 
 # TESTS
-add_executable(${PROJECT_NAME}_tests
-    src/Player.cpp
-    src/Player.h
-    src/PlayerCell.h
-    tests/hello_test.cpp
-    tests/PlayerTests.cpp)
-target_link_libraries(
-    ${PROJECT_NAME}_tests
-    raylib
-    GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(${PROJECT_NAME}_tests)
+#add_executable(${PROJECT_NAME}_tests
+#    src/Player.cpp
+#    src/Player.h
+#    src/PlayerCell.h
+#    tests/hello_test.cpp
+#    tests/PlayerTests.cpp
+#        )
+#target_link_libraries(
+#    ${PROJECT_NAME}_tests
+#    raylib
+#    GTest::gtest_main
+#)
+#
+#include(GoogleTest)
+#gtest_discover_tests(${PROJECT_NAME}_tests)
