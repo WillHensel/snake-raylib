@@ -7,8 +7,6 @@
 Application::Application() {
     SetConfigFlags(FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(windowSize_.x, windowSize_.y, "Snake");
-    SetTargetFPS(2);
-    
     game_ = new Game{};
 }
 

@@ -16,16 +16,23 @@ public:
     explicit Player(PlayerRenderComponent*);
     ~Player();
     void update();
-    void moveForward();
-    void addTail();
-    Vector2 getHeadPos();
-    Vector2 getTailPos();
+    
     std::vector<Vector2> getCellPositions();
-    int getCellCount();
     
 private:
-    Vector2 lookingAt{};
-    PlayerCell* head;
+    void handleInput();
+    void moveForward();
+    void addTail();
+    void initialize(int);
+    Vector2 getHeadPos();
+    Vector2 getTailPos();
+    int getCellCount();
+    
+    
+    int movesSinceLastInput = 1; 
+    double lastMove_ = 0;
+    Vector2 lookingAt_{};
+    PlayerCell* head_;
     
     PlayerRenderComponent* renderComponent_;
 };
