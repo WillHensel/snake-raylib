@@ -3,14 +3,15 @@
 //
 
 #include "GameAreaRenderComponent.h"
+#include "GameInfo.h"
 
 void GameAreaRenderComponent::draw() {
     ClearBackground(DARKGRAY);
     
     Rectangle outlineRect{
-            .x =  gameAreaScreenCoordinates_.x,
-            .y =  gameAreaScreenCoordinates_.y,
-            .width =  gameAreaSize_,
-            .height =  gameAreaSize_};
+            .x =  GameInfo::getGameAreaScreenCoordinates().x,
+            .y =  GameInfo::getGameAreaScreenCoordinates().y,
+            .width =  GameInfo::getGameAreaSize(),
+            .height =  GameInfo::getGameAreaSize()};
     DrawRectangleRoundedLinesEx(outlineRect, 0.025, 3, 4, LIGHTGRAY);
 }

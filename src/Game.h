@@ -10,23 +10,19 @@
 #include "Player.h"
 #include "GameAreaRenderComponent.h"
 #include "PlayerRenderComponent.h"
+#include "Apple.h"
+#include "AppleRenderComponent.h"
+#include "GameInfo.h"
 
 class Game {
 public:
-    Game() : player_(Player{new PlayerRenderComponent(gameAreaSize_, gameAreaScreenCoordinates_)}) {};
     void gameLoop();
-
 private:
     int score_ = 0;
-    float gameAreaSize_ = 500;
-    Vector2 gameAreaScreenCoordinates_{
-            (float) GetRenderWidth() / 2.0f - gameAreaSize_ / 2.0f,
-            (float) GetRenderHeight() / 2.0f - gameAreaSize_ / 2.0f
-    };
 
-    Player player_;
-
-    GameAreaRenderComponent renderComponent{gameAreaSize_, gameAreaScreenCoordinates_};
+    Player player_{new PlayerRenderComponent()};
+    Apple apple_{new AppleRenderComponent(), player_};
+    GameAreaRenderComponent renderComponent{};
 };
 
 

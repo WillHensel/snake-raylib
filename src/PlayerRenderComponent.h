@@ -13,11 +13,8 @@ class Player;
 
 class PlayerRenderComponent {
 public:
-    PlayerRenderComponent(float, Vector2);
-    void draw(Player&) const;
+    void draw(Player&);
 private:
-    float gameAreaSize_;
-    Vector2 gameAreaScreenCoordinates_;
 };
 
 

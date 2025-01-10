@@ -12,6 +12,7 @@ void Game::gameLoop() {
 
         renderComponent.draw();
         player_.update();
+        apple_.update();
 
         EndDrawing();
     }

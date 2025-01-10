@@ -10,14 +10,8 @@
 
 class GameAreaRenderComponent {
 public:
-    GameAreaRenderComponent(float gameAreaSize, Vector2 gameAreaScreenCoordinates)
-            : gameAreaSize_(gameAreaSize), gameAreaScreenCoordinates_(gameAreaScreenCoordinates) {}
-            
-    virtual void draw();
-
+    void draw();
 private:
-    float gameAreaSize_;
-    Vector2 gameAreaScreenCoordinates_;
 };
 
 
