@@ -18,7 +18,7 @@ Player::Player() {
 }
 
 Player::~Player() {
-    std::cout << "Player destroyed" << std::endl;
+//    std::cout << "Player destroyed" << std::endl;
     
     delete renderComponent_;
 
@@ -128,6 +128,8 @@ void Player::moveForward() {
         
         next = next->next;
     }
+    
+//    std::cout << "Head position: (" << getHeadPos().x << ", " << getHeadPos().y << ")" << std::endl;
 }
 
 void Player::addTail() {

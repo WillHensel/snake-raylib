@@ -11,10 +11,9 @@
 #include "GameUiComponent.h"
 
 Game::Game() {
-    player_ = new Player();
     renderComponent_ = new GameAreaRenderComponent();
     uiComponent_ = new GameUiComponent();
-    spawnNewApple();
+    initializeLevel();
 }
 
 Game::~Game() {
@@ -24,12 +23,28 @@ Game::~Game() {
     delete uiComponent_;
 }
 
+void Game::initializeLevel() {
+    player_ = new Player();
+    spawnNewApple();
+}
+
 void Game::gameLoop() {
     while (!WindowShouldClose()) {
         BeginDrawing();
 
         renderComponent_->draw();
-        player_->update();
+        
+        if (player_ != nullptr) {
+            player_->update();
+
+            float areaSize = GameInfo::getNumCells();
+            if (player_->getHeadPos().x < areaSize / 2 * -1
+                || player_->getHeadPos().y < areaSize / 2 * -1
+                || player_->getHeadPos().x > areaSize / 2
+                || player_->getHeadPos().y > areaSize / 2) {
+                gameOver();
+            }
+        }
         
         if (apple_ != nullptr) {
             apple_->update();
@@ -52,4 +67,16 @@ void Game::updateScore() {
 void Game::spawnNewApple() {
     if (apple_ == nullptr)
         apple_ = new Apple(*player_, [=] { updateScore(); });
+}
+
+void Game::gameOver() {
+    delete player_;
+    player_ = nullptr;
+    
+    delete apple_;
+    apple_ = nullptr;
+    
+    score_ = 0;
+    
+    initializeLevel();
 }

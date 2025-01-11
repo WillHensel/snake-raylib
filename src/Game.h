@@ -21,8 +21,10 @@ public:
     void gameLoop();
     void updateScore();
 private:
-    
+
+    void initializeLevel();
     void spawnNewApple();
+    void gameOver();
     
     int score_ = 0;
 
