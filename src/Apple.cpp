@@ -26,11 +26,13 @@ void Apple::update() {
 
 void Apple::initPosition() {
     std::vector<Vector2> playerCellPositions = player_.getCellPositions();
-    Vector2 applePos{
-            (float)(rand() % GameInfo::getNumCells() - 10 + 0.5),
-            (float)(rand() % GameInfo::getNumCells() - 10 + 0.5)
-    };
-    position_ = applePos;
+    do {
+        Vector2 applePos{
+                (float)(rand() % GameInfo::getNumCells() - 10),
+                (float)(rand() % GameInfo::getNumCells() - 10)
+        };
+        position_ = applePos;
+    } while (player_.isCellAt(position_, true));
 }
 
 Vector2 Apple::getPosition() {
@@ -39,5 +41,5 @@ Vector2 Apple::getPosition() {
 
 bool Apple::checkForHeadCollision() {
     Vector2 headPosition = player_.getHeadPos();
-    return position_.x - 0.5 == headPosition.x && position_.y - 0.5 == headPosition.y;
+    return position_.x == headPosition.x && position_.y == headPosition.y;
 }

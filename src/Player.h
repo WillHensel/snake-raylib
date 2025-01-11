@@ -22,6 +22,8 @@ public:
     
     std::vector<Vector2> getCellPositions();
     
+    bool isCellAt(Vector2, bool);
+    
 private:
     void handleInput();
     void moveForward();

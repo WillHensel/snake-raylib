@@ -41,7 +41,8 @@ void Game::gameLoop() {
             if (player_->getHeadPos().x < areaSize / 2 * -1
                 || player_->getHeadPos().y < areaSize / 2 * -1
                 || player_->getHeadPos().x > areaSize / 2
-                || player_->getHeadPos().y > areaSize / 2) {
+                || player_->getHeadPos().y > areaSize / 2
+                || player_->isCellAt(player_->getHeadPos(), false)) {
                 gameOver();
             }
         }
