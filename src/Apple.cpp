@@ -2,11 +2,15 @@
 // Created by will on 1/10/2025.
 //
 
-#include <iostream>
 #include "Apple.h"
 #include "Player.h"
 #include "AppleRenderComponent.h"
 #include "GameInfo.h"
+
+Apple::Apple(Player &player): player_(player) {
+        renderComponent_ = new AppleRenderComponent();
+        initPosition();
+};
 
 Apple::~Apple() {
     delete renderComponent_;

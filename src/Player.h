@@ -13,7 +13,7 @@ class PlayerRenderComponent;
 
 class Player {
 public:
-    explicit Player(PlayerRenderComponent*);
+    explicit Player();
     ~Player();
     void update();
     

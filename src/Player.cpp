@@ -8,8 +8,8 @@
 #include <iostream>
 #include "PlayerRenderComponent.h"
 
-Player::Player(PlayerRenderComponent* renderComponent)
-        : renderComponent_(renderComponent) {
+Player::Player() {
+    renderComponent_ = new PlayerRenderComponent();
     
     // Initially looking left
     lookingAt_ = {-1, 0};

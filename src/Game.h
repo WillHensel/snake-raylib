@@ -7,22 +7,24 @@
 
 #include <array>
 #include <iostream>
-#include "Player.h"
-#include "GameAreaRenderComponent.h"
-#include "PlayerRenderComponent.h"
-#include "Apple.h"
-#include "AppleRenderComponent.h"
 #include "GameInfo.h"
+
+class Apple;
+class GameAreaRenderComponent;
+class GameUiComponent;
 
 class Game {
 public:
+    Game();
+    ~Game();
     void gameLoop();
 private:
     int score_ = 0;
 
-    Player player_{new PlayerRenderComponent()};
-    Apple apple_{new AppleRenderComponent(), player_};
-    GameAreaRenderComponent renderComponent{};
+    Player* player_;
+    Apple* apple_;
+    GameAreaRenderComponent* renderComponent_;
+    GameUiComponent* uiComponent_;
 };
 
 

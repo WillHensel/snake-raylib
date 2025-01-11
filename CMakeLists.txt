@@ -54,6 +54,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/AppleRenderComponent.cpp
         src/AppleRenderComponent.h
         src/GameInfo.h
+        src/GameUiComponent.cpp
+        src/GameUiComponent.h
 )
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)

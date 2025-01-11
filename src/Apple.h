@@ -10,19 +10,15 @@
 #include "raylib.h"
 
 class AppleRenderComponent;
-
 class Player;
 
 class Apple {
 public:
-//    Apple(AppleRenderComponent *renderComponent, Player *player, std::function<void()> updateScore)
-//            : renderComponent_(renderComponent), player_(player), updateScoreCallback_(std::move(updateScore)) {
+//    Apple(AppleRenderComponent *renderComponent_, Player *player, std::function<void()> updateScore)
+//            : renderComponent_(renderComponent_), player_(player), updateScoreCallback_(std::move(updateScore)) {
 //        initPosition();
 //    };
-    Apple(AppleRenderComponent *renderComponent, Player &player)
-            : renderComponent_(renderComponent), player_(player) {
-        initPosition();
-    };
+    Apple(Player &player);
     ~Apple();
     void update();
     void initPosition();
