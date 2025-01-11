@@ -8,6 +8,6 @@
 #include "GameInfo.h"
 
 void AppleRenderComponent::draw(Apple& apple) {
-    Vector2 pos = apple.getPosition();
+    Vector2 pos = GameInfo::getScreenSpaceCoordinateOfCell(apple.getPosition());
     DrawCircle(pos.x, pos.y, GameInfo::getCellSize() / 2, RED);
 }

@@ -9,6 +9,7 @@
 #include <iostream>
 #include "GameInfo.h"
 
+class Player;
 class Apple;
 class GameAreaRenderComponent;
 class GameUiComponent;
@@ -18,13 +19,18 @@ public:
     Game();
     ~Game();
     void gameLoop();
+    void updateScore();
 private:
+    
+    void spawnNewApple();
+    
     int score_ = 0;
 
     Player* player_;
-    Apple* apple_;
     GameAreaRenderComponent* renderComponent_;
     GameUiComponent* uiComponent_;
+    
+    Apple* apple_ = nullptr;
 };
 
 

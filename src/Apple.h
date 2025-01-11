@@ -18,16 +18,19 @@ public:
 //            : renderComponent_(renderComponent_), player_(player), updateScoreCallback_(std::move(updateScore)) {
 //        initPosition();
 //    };
-    Apple(Player &player);
+    Apple(Player &player, std::function<void()> updateScore);
     ~Apple();
     void update();
     void initPosition();
     Vector2 getPosition();
 
 private:
+    
+    bool checkForHeadCollision();
+    
     AppleRenderComponent *renderComponent_;
     Player &player_;
-//    std::function<void()> updateScoreCallback_;
+    std::function<void()> updateScoreCallback_;
     Vector2 position_;
 };
 

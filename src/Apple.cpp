@@ -2,12 +2,13 @@
 // Created by will on 1/10/2025.
 //
 
+#include <iostream>
 #include "Apple.h"
 #include "Player.h"
 #include "AppleRenderComponent.h"
 #include "GameInfo.h"
 
-Apple::Apple(Player &player): player_(player) {
+Apple::Apple(Player &player, std::function<void()> updateScore): player_(player), updateScoreCallback_(updateScore) {
         renderComponent_ = new AppleRenderComponent();
         initPosition();
 };
@@ -17,18 +18,26 @@ Apple::~Apple() {
 }
 
 void Apple::update() {
+    if (checkForHeadCollision()) {
+        updateScoreCallback_();
+    }
     renderComponent_->draw(*this);
 }
 
 void Apple::initPosition() {
     std::vector<Vector2> playerCellPositions = player_.getCellPositions();
     Vector2 applePos{
-            (float)(rand() % GameInfo::getNumCells() - 10 + (GameInfo::getCellSize() / 2)),
-            (float)(rand() % GameInfo::getNumCells() - 10 + (GameInfo::getCellSize() / 2))
+            (float)(rand() % GameInfo::getNumCells() - 10 + 0.5),
+            (float)(rand() % GameInfo::getNumCells() - 10 + 0.5)
     };
-    position_ = GameInfo::getScreenSpaceCoordinateOfCell(applePos);
+    position_ = applePos;
 }
 
 Vector2 Apple::getPosition() {
     return position_;
+}
+
+bool Apple::checkForHeadCollision() {
+    Vector2 headPosition = player_.getHeadPos();
+    return position_.x - 0.5 == headPosition.x && position_.y - 0.5 == headPosition.y;
 }

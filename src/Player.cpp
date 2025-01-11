@@ -53,7 +53,7 @@ void Player::update() {
     handleInput();
     
     double currentTime = GetTime();
-    if (currentTime - lastMove_ >= 0.25) {
+    if (currentTime - lastMove_ >= 0.15) {
         lastMove_ = currentTime;
         moveForward();
         movesSinceLastInput++;

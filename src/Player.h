@@ -16,15 +16,16 @@ public:
     explicit Player();
     ~Player();
     void update();
+
+    void addTail();
+    Vector2 getHeadPos();
     
     std::vector<Vector2> getCellPositions();
     
 private:
     void handleInput();
     void moveForward();
-    void addTail();
     void initialize(int);
-    Vector2 getHeadPos();
     Vector2 getTailPos();
     int getCellCount();
     

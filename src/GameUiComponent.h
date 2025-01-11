@@ -7,7 +7,8 @@
 
 
 class GameUiComponent {
-
+public:
+    void drawScore(int);
 };
 
 
