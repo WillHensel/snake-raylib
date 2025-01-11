@@ -401,5 +401,5 @@ raylib-master
 Makefile
 /*.sln
 
-cmake-build-debug/
+cmake-build*/
 .idea/
