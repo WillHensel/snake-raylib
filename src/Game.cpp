@@ -31,27 +31,39 @@ void Game::initializeLevel() {
 void Game::gameLoop() {
     while (!WindowShouldClose()) {
         BeginDrawing();
-
+        
         renderComponent_->draw();
-        
-        if (player_ != nullptr) {
-            player_->update();
 
-            float areaSize = GameInfo::getNumCells();
-            if (player_->getHeadPos().x < areaSize / 2 * -1
-                || player_->getHeadPos().y < areaSize / 2 * -1
-                || player_->getHeadPos().x > areaSize / 2
-                || player_->getHeadPos().y > areaSize / 2
-                || player_->isCellAt(player_->getHeadPos(), false)) {
-                gameOver();
+        if (gameStarted_) {
+            
+            if (player_ != nullptr) {
+                player_->update();
+
+                float areaSize = GameInfo::getNumCells();
+                if (player_->getHeadPos().x < areaSize / 2 * -1
+                    || player_->getHeadPos().y < areaSize / 2 * -1
+                    || player_->getHeadPos().x > areaSize / 2
+                    || player_->getHeadPos().y > areaSize / 2
+                    || player_->isCellAt(player_->getHeadPos(), false)) {
+                    gameOver();
+                    gameOver_ = true;
+                    gameStarted_ = false;
+                }
             }
+
+            if (apple_ != nullptr) {
+                apple_->update();
+            }
+
+            uiComponent_->drawScore(score_);
+        }
+        else if (gameOver_) {
+            uiComponent_->drawGameOverScreen();
+        }
+        else {
+            uiComponent_->drawStartScreen();
         }
         
-        if (apple_ != nullptr) {
-            apple_->update();
-        }
-        
-        uiComponent_->drawScore(score_);
 
         EndDrawing();
     }

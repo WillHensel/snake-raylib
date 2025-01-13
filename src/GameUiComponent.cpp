@@ -6,6 +6,7 @@
 #include "GameUiComponent.h"
 #include "raylib.h"
 #include "GameInfo.h"
+#include "Button.h"
 
 void GameUiComponent::drawScore(int score) {
     const char* labelText = "score";
@@ -21,4 +22,19 @@ void GameUiComponent::drawScore(int score) {
             
     DrawText(labelText, GetRenderWidth() / 2 - labelWidth / 2, 20, labelFontSize, RAYWHITE);
     DrawText(scoreText, GetRenderWidth() / 2 - scoreWidth / 2, 55, scoreFontSize, RAYWHITE);
+}
+
+void GameUiComponent::drawStartScreen() {
+    const int titleFontSize = 50;
+    const char* titleText = "Snake";
+    const int titleWidth = MeasureText(titleText, titleFontSize);
+    
+    DrawText(titleText, GetRenderWidth() / 2 - titleWidth / 2, GetRenderHeight() / 2 - 200, titleFontSize, RAYWHITE);
+    
+    const char* btnText = "Start game";
+    DrawButton(btnText, GetRenderWidth() / 2.0f - 70, GetRenderHeight() / 2.0f, 140, 50);
+}
+
+void GameUiComponent::drawGameOverScreen() {
+    
 }

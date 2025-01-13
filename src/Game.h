@@ -33,6 +33,9 @@ private:
     GameUiComponent* uiComponent_;
     
     Apple* apple_ = nullptr;
+    
+    bool gameStarted_ = false;
+    bool gameOver_ = false;
 };
 
 

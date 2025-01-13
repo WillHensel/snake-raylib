@@ -6,9 +6,14 @@
 #define SNAKE_RAYLIB_GAMEUICOMPONENT_H
 
 
+#include "raylib.h"
+
 class GameUiComponent {
 public:
     void drawScore(int);
+    void drawStartScreen();
+    void drawGameOverScreen();
+private:
 };
 
 

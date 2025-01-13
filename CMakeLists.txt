@@ -61,6 +61,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/GameInfo.h
         src/GameUiComponent.cpp
         src/GameUiComponent.h
+        src/Button.cpp
+        src/Button.h
 )
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
