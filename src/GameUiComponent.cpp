@@ -36,6 +36,13 @@ void GameUiComponent::drawStartScreen(const std::function<void()>& startClickHan
     DrawButton(btnText, GetRenderWidth() / 2.0f - 70, GetRenderHeight() / 2.0f, 140, 50, startClickHandler);
 }
 
-void GameUiComponent::drawGameOverScreen() {
+void GameUiComponent::drawGameOverScreen(const std::function<void()>& mainMenuClickHandler) {
+    const int titleFontSize = 50;
+    const char* titleText = "Game Over";
+    const int titleWidth = MeasureText(titleText, titleFontSize);
+
+    DrawText(titleText, GetRenderWidth() / 2 - titleWidth / 2, GetRenderHeight() / 2 - 200, titleFontSize, RAYWHITE);
     
+    const char* btnText = "Main menu";
+    DrawButton(btnText, GetRenderWidth() / 2.0f - 70, GetRenderHeight() / 2.0f, 140, 50, mainMenuClickHandler);
 }

@@ -16,7 +16,7 @@ void DrawButton(const char* text, float x, float y, float width, float height, c
 
     DrawRectangleRoundedLines(btnBounds, 0.2, 10, RAYWHITE);
     
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
         if (CheckCollisionPointRec(GetMousePosition(), btnBounds)) {
             clickHandler();
         }

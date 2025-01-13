@@ -56,7 +56,8 @@ void Game::gameLoop() {
             uiComponent_->drawScore(score_);
         }
         else if (gameOver_) {
-            uiComponent_->drawGameOverScreen();
+            auto l = [this] {gameOver_ = false; gameStarted_ = false;};
+            uiComponent_->drawGameOverScreen(l);
         }
         else {
             auto l = [this] {initializeLevel();};
@@ -91,6 +92,4 @@ void Game::gameOver() {
     score_ = 0;
     gameOver_ = true;
     gameStarted_ = false;
-    
-    initializeLevel();
 }
