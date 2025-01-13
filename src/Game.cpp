@@ -13,7 +13,6 @@
 Game::Game() {
     renderComponent_ = new GameAreaRenderComponent();
     uiComponent_ = new GameUiComponent();
-    initializeLevel();
 }
 
 Game::~Game() {
@@ -24,6 +23,7 @@ Game::~Game() {
 }
 
 void Game::initializeLevel() {
+    gameStarted_ = true;
     player_ = new Player();
     spawnNewApple();
 }
@@ -46,8 +46,6 @@ void Game::gameLoop() {
                     || player_->getHeadPos().y > areaSize / 2
                     || player_->isCellAt(player_->getHeadPos(), false)) {
                     gameOver();
-                    gameOver_ = true;
-                    gameStarted_ = false;
                 }
             }
 
@@ -61,7 +59,8 @@ void Game::gameLoop() {
             uiComponent_->drawGameOverScreen();
         }
         else {
-            uiComponent_->drawStartScreen();
+            auto l = [this] {initializeLevel();};
+            uiComponent_->drawStartScreen(l);
         }
         
 
@@ -79,7 +78,7 @@ void Game::updateScore() {
 
 void Game::spawnNewApple() {
     if (apple_ == nullptr)
-        apple_ = new Apple(*player_, [=] { updateScore(); });
+        apple_ = new Apple(*player_, [this] { updateScore(); });
 }
 
 void Game::gameOver() {
@@ -90,6 +89,8 @@ void Game::gameOver() {
     apple_ = nullptr;
     
     score_ = 0;
+    gameOver_ = true;
+    gameStarted_ = false;
     
     initializeLevel();
 }

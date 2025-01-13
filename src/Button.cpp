@@ -3,10 +3,11 @@
 //
 
 #include <iostream>
+#include <functional>
 #include "Button.h"
 #include "raylib.h"
 
-void DrawButton(const char* text, float x, float y, float width, float height) {
+void DrawButton(const char* text, float x, float y, float width, float height, const std::function<void()>& clickHandler) {
     const int fontSize = 20;
     const int textWidth = MeasureText(text, fontSize);
     const int textHeight = 10;
@@ -17,7 +18,7 @@ void DrawButton(const char* text, float x, float y, float width, float height) {
     
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         if (CheckCollisionPointRec(GetMousePosition(), btnBounds)) {
-            std::cout << "Button clicked" << std::endl;
+            clickHandler();
         }
     }
 }

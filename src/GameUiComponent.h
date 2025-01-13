@@ -11,7 +11,7 @@
 class GameUiComponent {
 public:
     void drawScore(int);
-    void drawStartScreen();
+    void drawStartScreen(const std::function<void()>&);
     void drawGameOverScreen();
 private:
 };
